@@ -9,6 +9,6 @@ These problems were <i>Location</i> & <i>Traveling Salesman Problem</i> variatio
 
 Other details can be found in our report and project descriptions.
 
-Links to libraries.
-https://developers.google.com/optimization
+Links to libraries:<br>
+https://developers.google.com/optimization<br>
 https://pandas.pydata.org/
