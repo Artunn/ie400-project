@@ -12,7 +12,7 @@ def partd():
         for j in range(V):
                 x[i, j] = solver.IntVar(0, 1, '')
 
-    m = solver.IntVar(1,infinity,'');
+    m = solver.IntVar(0,30,'');
 
     y = {}
     for i in range(V):
@@ -23,9 +23,9 @@ def partd():
     # for i in range(0, V):
     #     c[i] = solver.IntVar(0, 1, '')
 
-    solver.Add(solver.Sum(x[0, j] for j in range(V)) == m)
+    solver.Add(solver.Sum(x[0, j] for j in range(1, V) if i != j) == m)
 
-    solver.Add(solver.Sum(x[i, 0] for i in range(V)) == m)
+    solver.Add(solver.Sum(x[i, 0] for i in range(1, V) if i != j) == m)
 
     for j in range(1, V):
         solver.Add(solver.Sum(x[i, j] for i in range(V) if i != j) == 1)
@@ -33,7 +33,7 @@ def partd():
     for i in range(1, V):
         solver.Add(solver.Sum(x[i, j] for j in range(V) if i != j) == 1)
 
-    for i in range(1,V):
+    for i in range(1, V):
         solver.Add(solver.Sum(y[i, j] for j in range(V) if i != j)
                    - solver.Sum(y[j, i] for j in range(V) if i != j)
                    - solver.Sum(d.iat[i, j] * x[i,j] for j in range(V)) == 0
@@ -47,11 +47,14 @@ def partd():
         solver.Add(y[0,j] == d.iat[0,j] * x[0,j]);
 
     #Objective function
-    solver.Minimize(solver.Sum(d.iat[i, j] * x[i,j] for i in range(V) for j in range(V)))
+    solver.Minimize(m)
     status = solver.Solve()
 
     if status == pywraplp.Solver.OPTIMAL:
-        print(m.solution_value(), 'volunteers are required.')
+        print('Objective value =', solver.Objective().Value())
+        for i in range (V):
+            for j in range(V):
+                print(x[i,j].solution_value())
     else:
         print('The problem does not have an optimal solution.')
 

@@ -4,7 +4,7 @@ import pandas as pd
 def parta():
 
     NUMBER_OF_CENTERS = 4;
-    # Create the linear solver with the SCIP backend.
+    #Create the linear solver with the SCIP backend.
     solver = pywraplp.Solver.CreateSolver('SCIP')
 
     infinity = solver.infinity()
