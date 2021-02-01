@@ -1,4 +1,4 @@
-<h2>IE 400 Principles of Engineering Management Project<h2>
+<h2>IE 400 Principles of Engineering Management Project</h2>
 
 <b>Introduction</b><br>
 For this project we modeled four different optimization problems and solved them using a solver.
